@@ -1,3 +1,51 @@
+@font-face {
+    font-family: "Inter";
+    src: url("./fonts/Inter.ttf");
+}
+
+:root {
+    --bs-primary: #0d3d6b;
+    --bs-primary-rgb: 13, 61, 107;
+    --bs-link-color: #0d3d6b;
+    --bs-link-hover-color: #082C4B;
+}
+
+
 body {
-    background-color: skyblue;
+    font-family: "Inter";
+}
+
+/* Bootstrap overload */
+
+.btn-primary {
+    --bs-btn-bg: #0d3d6b;
+    --bs-btn-border-color: #0d3d6b;
+    --bs-btn-hover-bg: #082C4B;
+    --bs-btn-hover-border-color: #082C4B;
+    --bs-btn-active-bg: #061f36;
+    --bs-btn-active-border-color: #061f36;
+    --bs-btn-disabled-bg: #0d3d6b;
+    --bs-btn-disabled-border-color: #0d3d6b;
+}
+
+.btn-primary:focus,
+.btn-primary:focus-visible {
+    background-color: #0d3d6b;
+    border-color: #0d3d6b;
+    box-shadow: 0 0 0 0.25rem rgba(13, 61, 107, 0.25);
+}
+
+.form-control:focus {
+    border-color: #0d3d6b;
+    box-shadow: 0 0 0 0.25rem rgba(13, 61, 107, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: #0d3d6b;
+    border-color: #0d3d6b;
+}
+
+.form-check-input:focus {
+    border-color: #0d3d6b;
+    box-shadow: 0 0 0 0.25rem rgba(13, 61, 107, 0.25);
 }
