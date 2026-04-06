@@ -33,12 +33,12 @@ class Resource
 
     #[ORM\ManyToOne(inversedBy: 'resources')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?ResourceType $ResourceType = null;
+    private ?ResourceType $resourceType = null;
 
     /**
      * @var Collection<int, Reservation>
      */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'Resource')]
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'resource')]
     private Collection $reservations;
 
     public function __construct()
@@ -113,12 +113,12 @@ class Resource
 
     public function getResourceType(): ?ResourceType
     {
-        return $this->ResourceType;
+        return $this->resourceType;
     }
 
-    public function setResourceType(?ResourceType $ResourceType): static
+    public function setResourceType(?ResourceType $resourceType): static
     {
-        $this->ResourceType = $ResourceType;
+        $this->resourceType = $resourceType;
 
         return $this;
     }

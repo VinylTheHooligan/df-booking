@@ -21,7 +21,7 @@ class ResourceType
     /**
      * @var Collection<int, Resource>
      */
-    #[ORM\OneToMany(targetEntity: Resource::class, mappedBy: 'ResourceType')]
+    #[ORM\OneToMany(targetEntity: Resource::class, mappedBy: 'resourceType')]
     private Collection $resources;
 
     public function __construct()

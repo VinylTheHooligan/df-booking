@@ -31,7 +31,7 @@ class Reservation
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Resource $Resource = null;
+    private ?Resource $resource = null;
 
     public function getId(): ?int
     {
@@ -100,12 +100,12 @@ class Reservation
 
     public function getResource(): ?Resource
     {
-        return $this->Resource;
+        return $this->resource;
     }
 
-    public function setResource(?Resource $Resource): static
+    public function setResource(?Resource $resource): static
     {
-        $this->Resource = $Resource;
+        $this->resource = $resource;
 
         return $this;
     }
