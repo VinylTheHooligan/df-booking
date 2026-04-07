@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Dashboard;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +13,7 @@ final class MyBookingController extends AbstractController
     {
         return $this->render('dashboard/my_booking/index.html.twig', [
             'controller_name' => 'MyBookingController',
+            'page_selection' => 'my_booking'
         ]);
     }
 }
