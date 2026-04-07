@@ -3,13 +3,10 @@
 {% block title %}{{ parent() }} - Tableau de bord{% endblock %}
 
 {% block body %}
-    <div class="">
-        {% include "dashboard/_header.html.twig" %}
-        <div class="d-flex">
-            {% include "dashboard/_sidebar.html.twig" %}
-            <main class="flex-grow-1">
-                {% block content %}{% endblock %}
-            </main>
-        </div>
+    <div class="d-flex min-vh-100">
+        {% include "dashboard/_sidebar.html.twig" %}
+        <main class="flex-grow-1">
+            {% block content %}{% endblock %}
+        </main>
     </div>
 {% endblock %}

@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/dashboard/admin')]
+#[Route('/admin')]
 final class AdminUserController extends AbstractController
 {
     #[Route('/user', name: 'app_admin_user')]

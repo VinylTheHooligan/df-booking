@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/dashboard/admin')]
+#[Route('/admin')]
 final class AdminReservationController extends AbstractController
 {
     #[Route('/booking', name: 'app_admin_booking')]
