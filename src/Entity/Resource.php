@@ -41,6 +41,9 @@ class Resource
     #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'resource')]
     private Collection $reservations;
 
+    #[ORM\Column]
+    private ?int $quantity = 0;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -151,5 +154,37 @@ class Resource
         }
 
         return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): static
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function isQuantityAvailable(int $requestedQuantity): bool
+    {
+        if ($this->quantity === null) return false;
+
+        if ($requestedQuantity <= 0) return false;
+
+        return $this->quantity >= $requestedQuantity;
+    }
+
+    public function reserveQuantity(int $requestedQuantity): bool
+    {
+        if (!$this->isQuantityAvailable($requestedQuantity)) return false;
+
+        $this->quantity -= $requestedQuantity;
+
+        if ($this->quantity <= 0) $this->isAvailable = false;
+
+        return true;
     }
 }

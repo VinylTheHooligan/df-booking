@@ -1,0 +1,82 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4">DF Booking</span>
+    </a>
+    <hr>
+    {# Seulement pour les admins #}
+    {% if is_granted('ROLE_ADMIN') %}
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a href="#" class="nav-link {% if page_selection == 'admin_dashboard' %}active {% endif %}" aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Tableau de bord
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link {% if page_selection == 'admin_ressources' %}active {% endif %}" aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Gestion des ressources
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark {% if page_selection == 'admin_reservations' %}active {% endif %}">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                Gestion des réservations
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark {% if page_selection == 'admin_users' %}active {% endif %}">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                Gestion des utilisateurs
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark {% if page_selection == 'admin_settings' %}active {% endif %}">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                Paramètres
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark {% if page_selection == 'admin_log' %}active {% endif %}">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                Historique
+            </a>
+        </li>
+    </ul>
+    <hr>
+    {% endif %}
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a href="#" class="nav-link {% if page_selection == 'dashboard' %}active {% endif %}" aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Tableau de bord
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark {% if page_selection == 'ressources' %}active {% endif %}">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                Ressources
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark {% if page_selection == 'book' %}active {% endif %}">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                Réserver
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark {% if page_selection == 'book' %}my_booking {% endif %}">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                Mes réservations
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark {% if page_selection == 'profil' %}active {% endif %}">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                Mon profil
+            </a>
+        </li>
+    </ul>
+    <hr>
+</div>
