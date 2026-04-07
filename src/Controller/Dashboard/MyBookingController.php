@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/dashboard')]
 final class MyBookingController extends AbstractController
 {
     #[Route('/my_booking', name: 'app_my_booking')]
