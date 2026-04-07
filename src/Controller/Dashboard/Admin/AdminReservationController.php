@@ -9,10 +9,10 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/dashboard/admin')]
 final class AdminReservationController extends AbstractController
 {
-    #[Route('/reservation', name: 'app_admin_reservation')]
+    #[Route('/booking', name: 'app_admin_booking')]
     public function index(): Response
     {
-        return $this->render('dashboard/admin/index.html.twig', [
+        return $this->render('dashboard/admin/booking/index.html.twig', [
             'controller_name' => 'AdminReservationController',
             'page_selection' => 'admin_booking'  
         ]);

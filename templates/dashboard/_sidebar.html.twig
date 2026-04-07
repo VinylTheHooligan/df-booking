@@ -4,6 +4,7 @@
         <span class="fs-4">DF Booking</span>
     </a>
     <hr>
+
     {# Seulement pour les admins #}
     {% if is_granted('ROLE_ADMIN') %}
     <ul class="nav nav-pills flex-column mb-auto">
@@ -41,12 +42,14 @@
     <hr>
     {% endif %}
     <ul class="nav nav-pills flex-column mb-auto">
+        {% if not is_granted('ROLE_ADMIN') %}
         <li class="nav-item">
             <a href="#" class="nav-link {% if page_selection == 'dashboard' %}active {% endif %}" aria-current="page">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                 Tableau de bord
             </a>
         </li>
+        {% endif %}
         <li>
             <a href="#" class="nav-link link-dark {% if page_selection == 'book' %}active {% endif %}">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>

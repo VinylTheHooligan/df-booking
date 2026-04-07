@@ -12,7 +12,7 @@ final class AdminRessourcesController extends AbstractController
     #[Route('/ressources', name: 'app_admin_ressources')]
     public function index(): Response
     {
-        return $this->render('dashboard/admin/index.html.twig', [
+        return $this->render('dashboard/admin/ressources/index.html.twig', [
             'controller_name' => 'AdminRessourcesController',
             'page_selection' => 'admin_ressources'  
         ]);
