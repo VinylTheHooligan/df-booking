@@ -1,73 +1,83 @@
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-light shadow-lg" style="width: 280px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-        <span class="fs-4">DF Booking</span>
-    </a>
-    <hr>
+    <div tabindex="-1" style="width: 280px;" data-bs-scroll="true" data-bs-backdrop="false">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+            <span class="fs-4">DF Booking</span>
+        </a>
+        <hr>
 
-    {# Seulement pour les admins #}
-    {% if is_granted('ROLE_ADMIN') %}
-    <ul class="nav nav-pills flex-column">
-        <li class="nav-item">
-            <a href="{{ path('app_admin_dashboard') }}" class="nav-link {% if page_selection == 'admin_dashboard' %}active {% else %}link-dark{% endif %}" aria-current="page">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                Tableau de bord
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ path('app_admin_ressources') }}" class="nav-link {% if page_selection == 'admin_ressources' %}active {% else %}link-dark{% endif %}" aria-current="page">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                Gestion des ressources
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ path('app_admin_booking') }}" class="nav-link {% if page_selection == 'admin_booking' %}active {% else %}link-dark{% endif %}">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                Gestion des réservations
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ path('app_admin_user') }}" class="nav-link {% if page_selection == 'admin_user' %}active {% else %}link-dark{% endif %}">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                Gestion des utilisateurs
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ path('app_admin_log') }}" class="nav-link {% if page_selection == 'admin_log' %}active {% else %}link-dark{% endif %}">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                Historique
-            </a>
-        </li>
-    </ul>
-    <hr>
-    {% endif %}
-    <ul class="nav nav-pills flex-column">
-        {% if not is_granted('ROLE_ADMIN') %}
-        <li class="nav-item">
-            <a href="{{ path('app_dashboard') }}" class="nav-link {% if page_selection == 'dashboard' %}active {% else %}link-dark{% endif %}" aria-current="page">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                Tableau de bord
-            </a>
-        </li>
+        {# Seulement pour les admins #}
+        {% if is_granted('ROLE_ADMIN') %}
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+                <a href="{{ path('app_admin_dashboard') }}" class="nav-link {% if page_selection == 'admin_dashboard' %}active {% else %}link-dark{% endif %}" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Tableau de bord
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('app_admin_ressources') }}" class="nav-link {% if page_selection == 'admin_ressources' %}active {% else %}link-dark{% endif %}" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Gestion des ressources
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('app_admin_booking') }}" class="nav-link {% if page_selection == 'admin_booking' %}active {% else %}link-dark{% endif %}">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                    Gestion des réservations
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('app_admin_user') }}" class="nav-link {% if page_selection == 'admin_user' %}active {% else %}link-dark{% endif %}">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                    Gestion des utilisateurs
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('app_admin_log') }}" class="nav-link {% if page_selection == 'admin_log' %}active {% else %}link-dark{% endif %}">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                    Historique
+                </a>
+            </li>
+        </ul>
+        <hr>
         {% endif %}
-        <li class="nav-item">
-            <a href="{{ path('app_book') }}" class="nav-link {% if page_selection == 'book' %}active {% else %}link-dark{% endif %}">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                Réserver
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ path('app_my_booking') }}" class="nav-link {% if page_selection == 'my_booking' %}active {% else %}link-dark{% endif %}">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                Mes réservations
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ path('app_profil') }}" class="nav-link {% if page_selection == 'profil' %}active {% else %}link-dark{% endif %}">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                Mon profil
-            </a>
-        </li>
-    </ul>
-    <hr>
-</div>
+
+        {# Pour tout les utilisateurs #}
+        <ul class="nav nav-pills flex-column">
+            {% if not is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a href="{{ path('app_dashboard') }}" class="nav-link {% if page_selection == 'dashboard' %}active" {% else %}link-dark"{% endif %}">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Tableau de bord
+                </a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a href="{{ path('app_book') }}" class="nav-link {% if page_selection == 'book' %}active {% else %}link-dark{% endif %}">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                    Réserver
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('app_my_booking') }}" class="nav-link {% if page_selection == 'my_booking' %}active {% else %}link-dark{% endif %}">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                    Mes réservations
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('app_profil') }}" class="nav-link {% if page_selection == 'profil' %}active {% else %}link-dark{% endif %}">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                    Mon profil
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <ul class="nav nav-pills flex-column mt-auto mb-3">
+            <li class="nav-item">
+                <a href="{{ path('app_logout') }}" class="nav-link">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                    Déconnexion
+                </a>
+            </li>
+        </ul>
+    </div>

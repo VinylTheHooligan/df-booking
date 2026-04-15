@@ -22,11 +22,17 @@ class Resource
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $capacity = null;
+    #[ORM\Column(length: 100)]
+    private ?string $location = null;
+
+    #[ORM\Column(type: Types::JSON)]
+    private array $equipment = [];
 
     #[ORM\Column]
-    private ?bool $isAvailable = null;
+    private ?int $capacity;
+
+    #[ORM\Column]
+    private ?bool $isEnabled = true;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -44,6 +50,7 @@ class Resource
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -75,26 +82,50 @@ class Resource
         return $this;
     }
 
-    public function getCapacity(): ?int
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): static
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getEquipment(): array
+    {
+        return $this->equipment;
+    }
+
+    public function setEquipment(array $equipment): static
+    {
+        $this->equipment = $equipment;
+
+        return $this;
+    }
+
+    public function getCapacity(): int
     {
         return $this->capacity;
     }
 
-    public function setCapacity(?int $capacity): static
+    public function setCapacity(int $capacity): static
     {
         $this->capacity = $capacity;
 
         return $this;
     }
 
-    public function isAvailable(): ?bool
+    public function isEnabled(): bool
     {
-        return $this->isAvailable;
+        return $this->isEnabled;
     }
 
-    public function setIsAvailable(bool $isAvailable): static
+    public function setIsEnabled(bool $isEnabled): static
     {
-        $this->isAvailable = $isAvailable;
+        $this->isEnabled = $isEnabled;
 
         return $this;
     }
@@ -153,15 +184,35 @@ class Resource
         return $this;
     }
 
-    public function isAvailableForSlot(\DateTimeImmutable $start, \DateTimeImmutable $end): bool
+    public function isFreeAt(\DateTimeImmutable $date): bool
     {
-        if (!$this->isAvailable) return false;
-
-        foreach ($this->reservations as $r) {
-            if ($r->getStartAt() < $end && $r->getEndAt() > $start) {
+        foreach ($this->reservations as $r)
+        {
+            if ($r->getStartAt() <= $date && $r->getEndAt() >= $date)
+            {
                 return false;
             }
         }
         return true;
     }
+
+    public function isAvailableForSlot(\DateTimeImmutable $start, \DateTimeImmutable $end): bool
+    {
+        if (!$this->isEnabled)
+        {
+            return false;
+        }
+
+        foreach ($this->reservations as $reservation)
+        {
+            $overlap = $reservation->getStartAt() < $end && $reservation->getEndAt() > $start;
+
+            if ($overlap)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

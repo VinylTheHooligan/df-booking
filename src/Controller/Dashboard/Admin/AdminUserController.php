@@ -14,7 +14,7 @@ final class AdminUserController extends AbstractController
     {
         return $this->render('dashboard/admin/user/index.html.twig', [
             'controller_name' => 'AdminUserController',
-            'page_selection' => 'admin_user'  
+            'page_selection' => 'admin_user'
         ]);
     }
 }

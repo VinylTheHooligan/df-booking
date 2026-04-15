@@ -4,26 +4,54 @@ namespace App\Entity;
 
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+use DateTimeImmutable;
+
+enum ReservationStatus: string {
+    case PENDING = 'pending';
+    case CONFIRMED = 'confirmed';
+    case END = 'end';
+    case CANCELLED = 'cancelled';
+}
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\NotNull()]
+    #[Assert\DateTime()]
+    #[Assert\GreaterThan("now", message: "La réservation doit commencer dans le futur.")]
     #[ORM\Column]
     private ?\DateTimeImmutable $startAt = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\NotNull()]
+    #[Assert\DateTime()]
+    #[Assert\Expression(
+    "this.getEndAt() > this.getStartAt()",
+    message: "La date de fin doit être postérieure à la date de début."
+    )]
     #[ORM\Column]
     private ?\DateTimeImmutable $endAt = null;
 
     #[ORM\Column]
+    #[Assert\DateTime()]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $status = null;
+    #[ORM\Column(enumType: ReservationStatus::class, length: 50)]
+    private ?ReservationStatus $status = ReservationStatus::PENDING;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
@@ -74,12 +102,12 @@ class Reservation
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?ReservationStatus
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(ReservationStatus $status): static
     {
         $this->status = $status;
 
@@ -108,5 +136,10 @@ class Reservation
         $this->resource = $resource;
 
         return $this;
+    }
+
+    public function getDuration(): \DateInterval
+    {
+        return $this->startAt->diff($this->endAt);
     }
 }

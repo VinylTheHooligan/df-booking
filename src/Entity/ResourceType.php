@@ -16,8 +16,10 @@ class ResourceType
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $name = null;
+    private ?string $name;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = null;
     /**
      * @var Collection<int, Resource>
      */
@@ -28,6 +30,12 @@ class ResourceType
     {
         $this->resources = new ArrayCollection();
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
 
     public function getId(): ?int
     {
@@ -43,6 +51,18 @@ class ResourceType
     {
         $this->name = $name;
 
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+        
         return $this;
     }
 
