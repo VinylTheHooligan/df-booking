@@ -1,5 +1,7 @@
 {% extends 'dashboard/_dashboard.html.twig' %}
 
 {% block content %}
-    
+    <div data-controller="chart">
+        <canvas data-chart-target="canvas"></canvas>
+    </div>
 {% endblock %}
