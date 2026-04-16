@@ -49,13 +49,39 @@ body {
     box-shadow: 0 0 0 0.25rem rgba(13, 61, 107, 0.25);
 }
 
+/* Conteneur sidebar */
 .sidebar {
     width: 280px;
     height: 100vh;
-    transition: transform .3s ease;
+    position: relative;
     transform: translateX(0);
+    transition: transform .3s ease;
+    z-index: 1030;
 }
 
+/* Contenu interne (ton div) */
+.sidebar-inner {
+    width: 100%;
+}
+
+/* Sidebar cachée (glisse vers la gauche) */
 .sidebar.hidden {
-    transform: translateX(-100%);
+    transform: translateX(-280px);
+}
+
+/* Languette en haut, à droite de la sidebar */
+.sidebar-tab {
+    position: absolute;
+    top: 10px;
+    right: -40px;
+    width: 40px;
+    height: 40px;
+    background: #0d6efd;
+    color: #fff;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.2);
 }

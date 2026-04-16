@@ -6,17 +6,12 @@
     <div class="d-flex min-vh-100">
 
         {# Sidebar desktop #}
-        <nav id="sidebar" class="sidebar bg-light shadow-lg d-flex flex-column p-3">
+        <nav data-controller="sidebar" data-sidebar-target="sidebar" id="sidebar" class="sidebar bg-light shadow-lg d-flex flex-column p-3">
+            <button data-action="sidebar#toggle" id="sidebarTab" class="sidebar-tab">☰</button>
             {% include "dashboard/_sidebar.html.twig" %}
         </nav>
 
-        <button id="sidebarShowBtn" class="btn btn-primary sidebar-show-btn d-none d-md-block">☰</button>
-
         <main class="flex-grow-1">
-
-            {# Bouton desktop pour cacher la sidebar #}
-            <button id="sidebarHideBtn" class="btn btn-outline-secondary d-none d-md-block m-3">Cacher</button>
-
             {% block content %}{% endblock %}
         </main>
 
