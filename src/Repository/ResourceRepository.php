@@ -19,13 +19,14 @@ class ResourceRepository extends ServiceEntityRepository
 
     public function findPaginated(int $page = 1, int $limit = 10): Paginator
     {
-        $query = $this->createQueryBuilder('p')
-            ->orderBy('p.id', 'ASC')
-            ->getQuery()
+        $query = $this->createQueryBuilder('r')
+            ->leftJoin('r.resourceType', 't')
+            ->addSelect('t')
+            ->orderBy('r.id', 'ASC')
             ->setFirstResult(($page - 1) * $limit)
             ->setMaxResults($limit);
 
-        return new Paginator($query, true);
+        return new Paginator($query, false);
     }
 
     //    /**

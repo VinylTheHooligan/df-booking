@@ -25,9 +25,6 @@ class Resource
     #[ORM\Column(length: 100)]
     private ?string $location = null;
 
-    #[ORM\Column(type: Types::JSON)]
-    private array $equipment = [];
-
     #[ORM\Column]
     private ?int $capacity;
 
@@ -37,7 +34,7 @@ class Resource
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'resources')]
+    #[ORM\ManyToOne(fetch: 'LAZY', inversedBy: 'resources')]
     #[ORM\JoinColumn(nullable: false)]
     private ?ResourceType $resourceType = null;
 
@@ -47,10 +44,17 @@ class Resource
     #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'resource')]
     private Collection $reservations;
 
+    /**
+     * @var Collection<int, RoomEquipment>
+     */
+    #[ORM\OneToMany(targetEntity: RoomEquipment::class, mappedBy: 'resource', orphanRemoval: true)]
+    private Collection $equipments;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
+        $this->equipments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,18 +94,6 @@ class Resource
     public function setLocation(?string $location): static
     {
         $this->location = $location;
-
-        return $this;
-    }
-
-    public function getEquipment(): array
-    {
-        return $this->equipment;
-    }
-
-    public function setEquipment(array $equipment): static
-    {
-        $this->equipment = $equipment;
 
         return $this;
     }
@@ -215,4 +207,33 @@ class Resource
         return true;
     }
 
+    /**
+     * @return Collection<int, RoomEquipment>
+     */
+    public function getEquipments(): Collection
+    {
+        return $this->equipments;
+    }
+
+    public function addEquipment(RoomEquipment $equipment): static
+    {
+        if (!$this->equipments->contains($equipment)) {
+            $this->equipments->add($equipment);
+            $equipment->setResource($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipment(RoomEquipment $equipment): static
+    {
+        if ($this->equipments->removeElement($equipment)) {
+            // set the owning side to null (unless already changed)
+            if ($equipment->getResource() === $this) {
+                $equipment->setResource(null);
+            }
+        }
+
+        return $this;
+    }
 }
