@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Resource;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,6 +15,17 @@ class ResourceRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Resource::class);
+    }
+
+    public function findPaginated(int $page = 1, int $limit = 10): Paginator
+    {
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit);
+
+        return new Paginator($query, true);
     }
 
     //    /**

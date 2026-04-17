@@ -11,22 +11,48 @@ use Doctrine\Persistence\ObjectManager;
 class AppFixtures extends Fixture
 {
     private array $resourceTypes = [
-        'Salles',
+        'Salles de réunion',
+        'Salles de conférence',
+        'Salles de formation',
+        'Bureau',
+        'Open Space'
     ];
 
     private array $resources = [
-        'Salles' => [
+        'Salles de réunion' => [
             'Salle de réunion A' => 8,
             'Salle de réunion B' => 15,
+            'Salle de réunion C' => 15,
+            'Salle de réunion D' => 15,
+            'Salle de réunion E' => 19,
+        ],
+        'Salles de conférence' => [
             'Salle de conférence A' => 20,
             'Salle de conférence B' => 20,
+            'Salle de conférence C' => 20,
+            'Salle de conférence D' => 20,
+        ],
+        'Salles de formation' => [
             'Salle de formation A' => 30,
             'Salle de formation B' => 25,
             'Salle de formation C' => 30,
+            'Salle de formation D' => 30,
+            'Salle de formation E' => 30,
+            'Salle de formation F' => 30,
+            'Salle de formation G' => 30,
+        ],
+        'Bureau' => [
             'Bureau partagé A' => 5,
             'Bureau partagé B' => 5,
+            'Bureau partagé C' => 5,
+            'Bureau partagé D' => 5,
+            'Bureau partagé E' => 5,
+            'Bureau partagé F' => 5,
+        ],
+        'Open Space' => [
             'Open Space A' => 12,
             'Open Space B' => 14,
+            'Open Space C' => 14,
         ],
     ];
 
@@ -34,8 +60,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $this->loadUser();
-        $this->loadRessourceType();
-        
+        $this->loadRessourceType();        
         $this->loadRoomRessources();
     }
 
@@ -73,9 +98,11 @@ class AppFixtures extends Fixture
                 ResourceFactory::createOne([
                     'name'         => $name,
                     'capacity'     => $capacity,
-                    'isAvailable'  => true,
+                    'isEnabled'  => true,
                     'resourceType' => $resourceType,
                     'createdAt'    => new \DateTimeImmutable(),
+                    'description'  => 'Salle dont la description reste à définir.',
+                    'location'     => 'Adresse, Étage ##.',
                 ]);
             }
         }

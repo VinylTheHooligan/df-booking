@@ -5,5 +5,6 @@ export default class extends Controller {
 
     toggle() {
         this.sidebarTarget.classList.toggle("hidden");
+        document.body.classList.toggle("sidebar-collapsed");
     }
 }

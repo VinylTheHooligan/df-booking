@@ -33,7 +33,7 @@ final class ResourceFactory extends PersistentProxyObjectFactory
     {
         return [
             'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
-            'isAvailable' => true,
+            'isEnabled' => true,
             'name' => self::faker()->text(150),
             'resourceType' => null,
         ];

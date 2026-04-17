@@ -5,14 +5,13 @@
 {% block body %}
     <div class="d-flex min-vh-100">
 
-        {# Sidebar desktop #}
         <nav data-controller="sidebar" data-sidebar-target="sidebar" id="sidebar" class="sidebar bg-light shadow-lg d-flex flex-column p-3">
             <button data-action="sidebar#toggle" id="sidebarTab" class="sidebar-tab">☰</button>
             {% include "dashboard/_sidebar.html.twig" %}
         </nav>
-
+        
         <main class="flex-grow-1">
-            {% block content %}{% endblock %}
+            <div class="m-5">{% block content %}{% endblock %}</div>
         </main>
 
     </div>

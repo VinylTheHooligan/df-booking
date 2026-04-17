@@ -1,5 +1,67 @@
 {% extends 'dashboard/_dashboard.html.twig' %}
 
 {% block content %}
-    
+    <div>
+        <h1>Gestion des ressources</h1>
+
+        <table class="table table-striped table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Capacité</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Localisation</th>
+                    <th scope="col">Créer le</th>
+                    <th scope="col">Disponible</th>
+                    <th scope="col">Équipements</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set currentCount = 0 %}
+
+                {% for ressource in paginator %}
+                    {% set currentCount = currentCount + 1 %}
+                    <tr>
+                        <td><b>{{ ressource.name }}</b></td>
+                        <td>{{ ressource.description }}</td>
+                        <td>{{ ressource.capacity }}</td>
+                        <td>A faire</td>
+                        <td>{{ ressource.location }}</td>
+                        <td>{{ ressource.createdAt|date("d/m/Y H:i", "Europe/Paris") }}</td>
+                        <td>{{ ressource.isEnabled ? 'Oui' : 'Non' }}</td>
+                        <td>A faire</td>
+                    </tr>
+                {% endfor %}
+
+                {% set missing = limit - currentCount %}
+
+                {% if missing %}
+                    {% for i in 1..missing %}
+                        <tr class="empty-row">
+                            <td colspan="8">&nbsp;</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %} 
+            </tbody>
+            <tfoot>
+                
+            </tfoot>
+        </table>
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                <li class="page-item {{ page > 1 ? '' : 'disabled'}}">
+                    <a class="page-link" href="?page={{ page - 1 }}">Précédent</a>
+                </li>
+                {% for i in 1..totalPages %}
+                    <li class="page-item {% if i == page %}active{% endif %}">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+                <li class="page-item {{ page < totalPages ? '' : 'disabled'}}">
+                    <a class="page-link" href="?page={{ page + 1 }}">Suivant</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 {% endblock %}
