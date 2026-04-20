@@ -9,31 +9,31 @@
         {% if is_granted('ROLE_ADMIN') %}
         <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-                <a href="{{ path('app_admin_dashboard') }}" class="nav-link {% if page_selection == 'admin_dashboard' %}active {% else %}link-dark{% endif %}" aria-current="page">
+                <a href="{{ path('app_admin_dashboard') }}" class="nav-link {% if app.request.attributes.get('_route') == 'app_admin_dashboard' %}active {% else %}link-dark{% endif %}" aria-current="page">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                     Tableau de bord
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ path('app_admin_ressources') }}" class="nav-link {% if page_selection == 'admin_ressources' %}active {% else %}link-dark{% endif %}" aria-current="page">
+                <a href="{{ path('app_admin_resources') }}" class="nav-link {% if app.request.attributes.get('_route') == 'app_admin_resources' %}active {% else %}link-dark{% endif %}" aria-current="page">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                     Gestion des ressources
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ path('app_admin_booking') }}" class="nav-link {% if page_selection == 'admin_booking' %}active {% else %}link-dark{% endif %}">
+                <a href="{{ path('app_admin_booking') }}" class="nav-link {% if app.request.attributes.get('_route') == 'app_admin_booking' %}active {% else %}link-dark{% endif %}">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
                     Gestion des réservations
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ path('app_admin_user') }}" class="nav-link {% if page_selection == 'admin_user' %}active {% else %}link-dark{% endif %}">
+                <a href="{{ path('app_admin_user') }}" class="nav-link {% if app.request.attributes.get('_route') == 'app_admin_user' %}active {% else %}link-dark{% endif %}">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
                     Gestion des utilisateurs
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ path('app_admin_log') }}" class="nav-link {% if page_selection == 'admin_log' %}active {% else %}link-dark{% endif %}">
+                <a href="{{ path('app_admin_log') }}" class="nav-link {% if app.request.attributes.get('_route') == 'app_admin_log' %}active {% else %}link-dark{% endif %}">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
                     Historique
                 </a>
@@ -46,26 +46,26 @@
         <ul class="nav nav-pills flex-column">
             {% if not is_granted('ROLE_ADMIN') %}
             <li class="nav-item">
-                <a href="{{ path('app_dashboard') }}" class="nav-link {% if page_selection == 'dashboard' %}active" {% else %}link-dark"{% endif %}">
+                <a href="{{ path('app_dashboard') }}" class="nav-link {% if app.request.attributes.get('_route') == 'app_dashboard' %}active" {% else %}link-dark"{% endif %}">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                     Tableau de bord
                 </a>
             </li>
             {% endif %}
             <li class="nav-item">
-                <a href="{{ path('app_book') }}" class="nav-link {% if page_selection == 'book' %}active {% else %}link-dark{% endif %}">
+                <a href="{{ path('app_book') }}" class="nav-link {% if app.request.attributes.get('_route') == 'app_book' %}active {% else %}link-dark{% endif %}">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
                     Réserver
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ path('app_my_booking') }}" class="nav-link {% if page_selection == 'my_booking' %}active {% else %}link-dark{% endif %}">
+                <a href="{{ path('app_my_booking') }}" class="nav-link {% if app.request.attributes.get('_route') == 'app_my_booking' %}active {% else %}link-dark{% endif %}">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
                     Mes réservations
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ path('app_profil') }}" class="nav-link {% if page_selection == 'profil' %}active {% else %}link-dark{% endif %}">
+                <a href="{{ path('app_profil') }}" class="nav-link {% if app.request.attributes.get('_route') == 'app_profil' %}active {% else %}link-dark{% endif %}">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
                     Mon profil
                 </a>

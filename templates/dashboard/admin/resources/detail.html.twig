@@ -1,0 +1,32 @@
+{% extends 'dashboard/_dashboard.html.twig' %}
+
+{% block title %}{{ parent() }} - {{ resource.name }}{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>{{ resource.name }}</h1>
+
+        <dl>
+            <dt>Id :</dt>
+            <dd>{{ resource.id }}</dd>
+
+            <dt>Description :</dt>
+            <dd>{{ resource.description }}</dd>
+
+            <dt>Type :</dt>
+            <dd>{{ resource.resourceType }}</dd>
+
+            <dt>Créer le :</dt>
+            <dd>{{ resource.createdAt|date("d/m/Y à H:i", "Europe/Paris") }}</dd>
+
+            <dt>Capacité humaine :</dt>
+            <dd>{{ resource.capacity }}</dd>
+
+            <dt>Localisation :</dt>
+            <dd>{{ resource.location }}</dd>
+
+            <dt>Est fonctionnel :</dt>
+            <dd>{{ resource.isEnabled ? 'Oui' : 'Non' }}</dd>
+        </dl>
+    </div>
+{% endblock %}

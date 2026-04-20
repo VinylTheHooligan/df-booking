@@ -2,11 +2,14 @@
 
 namespace App\DataFixtures;
 
+use App\Factory\EquipmentFactory;
 use App\Factory\ResourceFactory;
 use App\Factory\ResourceTypeFactory;
+use App\Factory\RoomEquipmentFactory;
 use App\Factory\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class AppFixtures extends Fixture
 {
@@ -56,12 +59,38 @@ class AppFixtures extends Fixture
         ],
     ];
 
+    private array $equipments = [
+        'Vidéoprojecteur Epson',
+        'Vidéoprojecteur BenQ',
+        'Ordinateur Portable Windows',
+        'Ordinateur Portable Linux',
+        'Ordinateur Compact',
+        'Écran PC 24"',
+        'Écran PC 27"',
+        'Webcam HD',
+        'Webcam 4K',
+        'Micro USB',
+        'Casque audio',
+        'Enceinte Bluetooth',
+        'Tablette Android',
+        'Tablette iPad',
+        'Paperboard',
+    ];
+
+    private \Faker\Generator $faker;
+
+    public function __construct()
+    {
+        $this->faker = Factory::create('fr_FR');
+    }
 
     public function load(ObjectManager $manager): void
     {
         $this->loadUser();
         $this->loadRessourceType();        
         $this->loadRoomRessources();
+        $this->loadEquipments();
+        $this->assignEquipmentToRooms();
     }
 
     private function loadUser(): void
@@ -108,4 +137,33 @@ class AppFixtures extends Fixture
         }
     }
 
+    private function loadEquipments(): void
+    {
+        foreach ($this->equipments as $equipment)
+        {
+            EquipmentFactory::createOne([
+                'name'    => $equipment
+            ]);
+        }
+    }
+
+    private function assignEquipmentToRooms(): void
+    {
+        $rooms = ResourceFactory::repository()->findAll();
+        $equipment = EquipmentFactory::repository()->findAll();
+
+        foreach ($rooms as $room)
+        {
+            $selected = $this->faker->randomElements($equipment, rand(2, 5));
+
+            foreach ($selected as $eq)
+            {
+                RoomEquipmentFactory::createOne([
+                    'resource'  => $room,
+                    'equipment' => $eq,
+                    'quantity'  => rand(1, 10),
+                ]);
+            }
+        }
+    }
 }

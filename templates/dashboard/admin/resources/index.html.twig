@@ -18,24 +18,29 @@
                     <th scope="col">Localisation</th>
                     <th scope="col">Créer le</th>
                     <th scope="col">Disponible</th>
-                    <th scope="col">Équipements</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 {% set currentCount = 0 %}
 
-                {% for ressource in paginator %}
+                {% for resource in paginator %}
                     {% set currentCount = currentCount + 1 %}
                     <tr>
-                        <td><b>{{ ressource.name }}</b></td>
-                        <td>{{ ressource.description }}</td>
-                        <td>{{ ressource.capacity }}</td>
-                        <td>{{ ressource.resourceType}}</td>
-                        <td>{{ ressource.location }}</td>
-                        <td>{{ ressource.createdAt|date("d/m/Y H:i", "Europe/Paris") }}</td>
-                        <td>{{ ressource.isEnabled ? 'Oui' : 'Non' }}</td>
-                        <td>A faire</td>
-                    </tr>
+                        <td><b>{{ resource.name }}</b></td>
+                        <td>{{ resource.description }}</td>
+                        <td>{{ resource.capacity }}</td>
+                        <td>{{ resource.resourceType}}</td>
+                        <td>{{ resource.location }}</td>
+                        <td>{{ resource.createdAt|date("d/m/Y H:i", "Europe/Paris") }}</td>
+                        <td>{{ resource.isEnabled ? 'Oui' : 'Non' }}</td>
+                        <td>
+                            <a type="button" class="btn btn-secondary btn-sm"
+                            href="{{ path("app_admin_resources_detail", { id: resource.id }) }}">
+                                Détails
+                            </a>
+                        </td>
+                    </tr>   
                 {% endfor %}
 
                 {% set missing = limit - currentCount %}
