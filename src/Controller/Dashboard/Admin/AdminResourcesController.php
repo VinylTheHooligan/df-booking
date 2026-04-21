@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/admin')]
-final class AdminRessourcesController extends AbstractController
+final class AdminResourcesController extends AbstractController
 {
     #[Route('/resources', name: 'app_admin_resources', methods: ["GET"])]
     public function index(ResourceRepository $repo, Request $request): Response
@@ -52,10 +52,9 @@ final class AdminRessourcesController extends AbstractController
 
         if ($resourceForm->isSubmitted() && $resourceForm->isValid())
         {
-            $em->persist($resource);
-            $em->flush();
+            
 
-            $this->addFlash("success", "La ressource à bien été modifié !");
+            $this->addFlash("success", "La ressource à bien été modifié !");            
         }
 
         return $this->render('dashboard/admin/resources/edit.html.twig', [

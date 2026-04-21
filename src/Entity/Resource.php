@@ -22,9 +22,6 @@ class Resource
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $location = null;
-
     #[ORM\Column]
     private ?int $capacity;
 
@@ -49,6 +46,10 @@ class Resource
      */
     #[ORM\OneToMany(targetEntity: RoomEquipment::class, mappedBy: 'resource', orphanRemoval: true)]
     private Collection $equipments;
+
+    #[ORM\ManyToOne(inversedBy: 'resources')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Location $location = null;
 
     public function __construct()
     {
@@ -82,18 +83,6 @@ class Resource
     public function setDescription(?string $description): static
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getLocation(): ?string
-    {
-        return $this->location;
-    }
-
-    public function setLocation(?string $location): static
-    {
-        $this->location = $location;
 
         return $this;
     }
@@ -233,6 +222,18 @@ class Resource
                 $equipment->setResource(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?Location $location): static
+    {
+        $this->location = $location;
 
         return $this;
     }

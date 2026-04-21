@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Location;
 use App\Entity\Resource;
 use App\Entity\ResourceType as EntityResourceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,7 +26,9 @@ class ResourceForm extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => 'Description :',
             ])
-            ->add('location', TextType::class, [
+            ->add('location', EntityType::class, [
+                'class' => Location::class,
+                'choice_label' => 'adress',
                 'label' => 'Adresse :',
                 'required' => true,
             ])

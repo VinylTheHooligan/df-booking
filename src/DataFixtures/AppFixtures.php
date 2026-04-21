@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Factory\EquipmentFactory;
+use App\Factory\LocationFactory;
 use App\Factory\ResourceFactory;
 use App\Factory\ResourceTypeFactory;
 use App\Factory\RoomEquipmentFactory;
@@ -87,7 +88,8 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $this->loadUser();
-        $this->loadRessourceType();        
+        $this->loadLocations();
+        $this->loadRessourceType();    
         $this->loadRoomRessources();
         $this->loadEquipments();
         $this->assignEquipmentToRooms();
@@ -105,7 +107,11 @@ class AppFixtures extends Fixture
                 'roles' => ['ROLE_USER']
             ];
         });
+    }
 
+    private function loadLocations(): void
+    {
+        LocationFactory::createMany(2);
     }
 
     private function loadRessourceType(): void
@@ -131,7 +137,7 @@ class AppFixtures extends Fixture
                     'resourceType' => $resourceType,
                     'createdAt'    => new \DateTimeImmutable(),
                     'description'  => 'Salle dont la description reste à définir.',
-                    'location'     => 'Adresse, Étage ##.',
+                    'location'     => LocationFactory::random(),
                 ]);
             }
         }
