@@ -27,6 +27,37 @@
 
             <dt>Est fonctionnel :</dt>
             <dd>{{ resource.isEnabled ? 'Oui' : 'Non' }}</dd>
+
+            <dt>Équipement(s) disponible :</dt>
+            <dd>
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Quantité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for equipment in resource.equipments %}
+                            <tr>
+                                <td>
+                                    {{ equipment.equipment.name }}
+                                </td>
+                                <td>
+                                    {{ equipment.quantity }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </dd>
         </dl>
+
+        <div class="d-flex gap-3 mt-5">
+            <a type="button" class="btn btn-outline-secondary me-5" href="{{ path('app_admin_resources') }}">Retour</a>
+            <a type="button" class="btn btn-outline-primary" href="{{ path('app_admin_resources_modify', { id: resource.id }) }}">Modifier</a>
+            <a type="button" class="btn btn-outline-warning" href="">Désactivé</a>
+            <a type="button" class="btn btn-outline-danger" href="">Supprimé</a>
+        </div>
     </div>
 {% endblock %}

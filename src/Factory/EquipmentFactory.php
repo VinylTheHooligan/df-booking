@@ -33,7 +33,6 @@ final class EquipmentFactory extends PersistentProxyObjectFactory
     {
         return [
             'name' => self::faker()->text(200),
-            'quantity' => self::faker()->randomNumber(),
         ];
     }
 

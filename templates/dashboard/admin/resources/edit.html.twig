@@ -1,0 +1,47 @@
+{% extends 'dashboard/_dashboard.html.twig' %}
+
+{% block title %}{{ resource.name }} - Edition{% endblock %}
+
+{% block content %}
+    <div>
+        <form action="" method="POST">
+            <fieldset>
+                <div class="form-group">
+                    {{ form_label(resourceForm.name) }}
+                    {{ form_widget(resourceForm.name) }}
+                    <small>{{ form_errors(resourceForm.name) }}</small>
+                </div>
+
+                <div class="form-group mt-5">
+                    {{ form_label(resourceForm.description) }}
+                    {{ form_widget(resourceForm.description) }}
+                    <small>{{ form_errors(resourceForm.description) }}</small>
+                </div>
+
+                <div class="form-group mt-5">
+                    {{ form_label(resourceForm.location) }}
+                    {{ form_widget(resourceForm.location) }}
+                    <small>{{ form_errors(resourceForm.location) }}</small>
+                </div>
+
+                <div class="form-group mt-5">
+                    {{ form_widget(resourceForm.isEnabled) }}
+                    {{ form_label(resourceForm.isEnabled) }}
+                    <small>{{ form_errors(resourceForm.isEnabled) }}</small>
+                </div>
+
+
+                <div class="form-group mt-5">
+                    {{ form_label(resourceForm.resourceType) }}
+                    {{ form_widget(resourceForm.resourceType) }}
+                    <small>{{ form_errors(resourceForm.resourceType) }}</small>
+                </div>
+            </fieldset>
+
+            <div class="d-flex gap-3 mt-5">
+                    <a type="button" class="btn btn-outline-secondary me-5" href="{{ path('app_admin_resources') }}">Annuler</a>
+                    <a type="button" class="btn btn-outline-primary" href="">Enregistrer</a>
+                </div>
+        </form>
+    </div>
+{% endblock %}

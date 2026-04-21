@@ -18,9 +18,6 @@ class Equipment
     #[ORM\Column(length: 200)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private ?int $quantity = null;
-
     /**
      * @var Collection<int, RoomEquipment>
      */
@@ -45,18 +42,6 @@ class Equipment
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): static
-    {
-        $this->quantity = $quantity;
 
         return $this;
     }

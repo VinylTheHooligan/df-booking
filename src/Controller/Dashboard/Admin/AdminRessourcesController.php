@@ -2,7 +2,10 @@
 
 namespace App\Controller\Dashboard\Admin;
 
+use App\Entity\Resource;
+use App\Form\ResourceForm;
 use App\Repository\ResourceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,10 +37,30 @@ final class AdminRessourcesController extends AbstractController
     #[Route('/resources/{id}', name: 'app_admin_resources_detail', methods: ["GET"], requirements:['id' => "\d+"])]
     public function detail($id, ResourceRepository $repo): Response
     {
-        $resource = $repo->find($id);
+        $resource = $repo->findWithRelations($id);
 
         return $this->render('dashboard/admin/resources/detail.html.twig', [
             'resource' => $resource,
+        ]);
+    }
+
+    #[Route('/resources/{id}/modify', name: 'app_admin_resources_modify', methods: ["GET", "POST"], requirements:['id' => "\d+"])]
+    public function modify(Resource $resource, Request $request, EntityManagerInterface $em): Response
+    {
+        $resourceForm = $this->createForm(ResourceForm::class, $resource);
+        $resourceForm->handleRequest($request);
+
+        if ($resourceForm->isSubmitted() && $resourceForm->isValid())
+        {
+            $em->persist($resource);
+            $em->flush();
+
+            $this->addFlash("success", "La ressource à bien été modifié !");
+        }
+
+        return $this->render('dashboard/admin/resources/edit.html.twig', [
+            'resource' => $resource,
+            'resourceForm' => $resourceForm,
         ]);
     }
 }

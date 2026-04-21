@@ -29,6 +29,19 @@ class ResourceRepository extends ServiceEntityRepository
         return new Paginator($query, false);
     }
 
+    public function findWithRelations(int $id): ?Resource
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin('r.resourceType', 'rt')->addSelect('rt')
+            ->leftJoin('r.equipments', 're')->addSelect('re')
+            ->leftJoin('re.equipment', 'e')->addSelect('e')
+            ->where('r.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+
     //    /**
     //     * @return Resource[] Returns an array of Resource objects
     //     */
