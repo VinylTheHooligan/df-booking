@@ -4,6 +4,8 @@
 
 {% block content %}
     <div>
+        <h1 class="mb-5">Édition de ressource</h1>
+
         <form action="" method="POST">
             <fieldset>
                 <div class="form-group">
@@ -12,36 +14,35 @@
                     <small>{{ form_errors(resourceForm.name) }}</small>
                 </div>
 
-                <div class="form-group mt-5">
+                <div class="form-group mt-3">
                     {{ form_label(resourceForm.description) }}
                     {{ form_widget(resourceForm.description) }}
                     <small>{{ form_errors(resourceForm.description) }}</small>
                 </div>
 
-                <div class="form-group mt-5">
+                <div class="form-group mt-3">
                     {{ form_label(resourceForm.location) }}
                     {{ form_widget(resourceForm.location) }}
                     <small>{{ form_errors(resourceForm.location) }}</small>
                 </div>
 
-                <div class="form-group mt-5">
+                <div class="form-group mt-3">
                     {{ form_widget(resourceForm.isEnabled) }}
                     {{ form_label(resourceForm.isEnabled) }}
                     <small>{{ form_errors(resourceForm.isEnabled) }}</small>
                 </div>
 
-
-                <div class="form-group mt-5">
+                <div class="form-group mt-3">
                     {{ form_label(resourceForm.resourceType) }}
                     {{ form_widget(resourceForm.resourceType) }}
                     <small>{{ form_errors(resourceForm.resourceType) }}</small>
                 </div>
             </fieldset>
 
-            <div class="d-flex gap-3 mt-5">
-                    <a type="button" class="btn btn-outline-secondary me-5" href="{{ path('app_admin_resources') }}">Annuler</a>
-                    <a type="button" class="btn btn-outline-primary" href="">Enregistrer</a>
-                </div>
+            <div class="d-flex gap-3 mt-3">
+                <a type="button" class="btn btn-outline-secondary me-5" href="{{ path('app_admin_resources') }}">Annuler</a>
+                <a type="button" class="btn btn-outline-primary" href="">Enregistrer</a>
+            </div>
         </form>
     </div>
 {% endblock %}

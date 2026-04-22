@@ -3,31 +3,43 @@
 {% block title %}{{ parent() }} - {{ resource.name }}{% endblock %}
 
 {% block content %}
+    {% set isEnabled = resource.isEnabled %}
     <div>
         <h1>{{ resource.name }}</h1>
 
+        <hr>
+
         <dl>
-            <dt>Id :</dt>
-            <dd>{{ resource.id }}</dd>
+            <div class="d-flex flex-row my-4">
+                <div class="w-100">
+                    <dt>ID :</dt>
+                    <dd>{{ resource.id }}</dd>
 
-            <dt>Description :</dt>
-            <dd>{{ resource.description }}</dd>
+                    <dt>Description :</dt>
+                    <dd>{{ resource.description }}</dd>
 
-            <dt>Type :</dt>
-            <dd>{{ resource.resourceType }}</dd>
+                    <dt>Type :</dt>
+                    <dd>{{ resource.resourceType }}</dd>
 
-            <dt>Créer le :</dt>
-            <dd>{{ resource.createdAt|date("d/m/Y à H:i", "Europe/Paris") }}</dd>
+                    <dt>Créer le :</dt>
+                    <dd>{{ resource.createdAt|date("d/m/Y à H:i", "Europe/Paris") }}</dd>
+                </div>
+                <div class="w-100">
+                    <dt>Capacité humaine :</dt>
+                    <dd>{{ resource.capacity }}</dd>
+                
+                    <dt>Localisation :</dt>
+                    <dd>{{ resource.location.adress }}</dd>
+                
+                    <dt>Est fonctionnel :</dt>
+                    <dd>{{ isEnabled ? 'Oui' : 'Non' }}</dd>
+                </div>
+            </div>
+        </dl>
 
-            <dt>Capacité humaine :</dt>
-            <dd>{{ resource.capacity }}</dd>
+        <hr>
 
-            <dt>Localisation :</dt>
-            <dd>{{ resource.location.adress }}</dd>
-
-            <dt>Est fonctionnel :</dt>
-            <dd>{{ resource.isEnabled ? 'Oui' : 'Non' }}</dd>
-
+        <dl>
             <dt>Équipement(s) disponible :</dt>
             <dd>
                 <table class="table table-striped table-sm">
@@ -52,12 +64,15 @@
                 </table>
             </dd>
         </dl>
-
+        
         <div class="d-flex gap-3 mt-5">
             <a type="button" class="btn btn-outline-secondary me-5" href="{{ path('app_admin_resources') }}">Retour</a>
             <a type="button" class="btn btn-outline-primary" href="{{ path('app_admin_resources_modify', { id: resource.id }) }}">Modifier</a>
-            <a type="button" class="btn btn-outline-warning" href="">Désactivé</a>
-            <a type="button" class="btn btn-outline-danger" href="">Supprimé</a>
+            <a type="button" class="btn btn-outline-warning" href="{{ path('app_admin_resources_toggle', { id: resource.id }) }}">{% if isEnabled %}Désactiver{% else %}Activer{% endif %}</a>
+            <form method="post"
+                  action="{{ path('app_admin_resources_delete', { id: resource.id, token: csrf_token('delete-resource-' ~ resource.id) }) }}">
+                <button class="btn btn-outline-danger">Supprimer</button>
+            </form>
         </div>
     </div>
 {% endblock %}

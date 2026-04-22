@@ -33,6 +33,9 @@ class Log
     #[ORM\Column(nullable: true)]
     private ?array $changes = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $entityClass = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +109,18 @@ class Log
     public function setChanges(?array $changes): static
     {
         $this->changes = $changes;
+
+        return $this;
+    }
+
+    public function getEntityClass(): ?string
+    {
+        return $this->entityClass;
+    }
+
+    public function setEntityClass(string $entityClass): static
+    {
+        $this->entityClass = $entityClass;
 
         return $this;
     }
