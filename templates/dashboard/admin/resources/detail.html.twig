@@ -67,11 +67,31 @@
         
         <div class="d-flex gap-3 mt-5">
             <a type="button" class="btn btn-outline-secondary me-5" href="{{ path('app_admin_resources') }}">Retour</a>
+
             <a type="button" class="btn btn-outline-primary" href="{{ path('app_admin_resources_modify', { id: resource.id }) }}">Modifier</a>
-            <a type="button" class="btn btn-outline-warning" href="{{ path('app_admin_resources_toggle', { id: resource.id }) }}">{% if isEnabled %}Désactiver{% else %}Activer{% endif %}</a>
-            <form method="post"
-                  action="{{ path('app_admin_resources_delete', { id: resource.id, token: csrf_token('delete-resource-' ~ resource.id) }) }}">
-                <button class="btn btn-outline-danger">Supprimer</button>
+
+            <button type="button" class="btn btn-outline-warning"
+                data-controller="trigger"
+                data-action="click->trigger#open"
+                data-trigger-title="{% if isEnabled %}Désactiver{% else %}Activer{% endif %} la ressource"
+                data-trigger-body="Souhaitez-vous vraiment {% if isEnabled %}désactiver{% else %}activer{% endif %} cette ressource ?"
+                data-trigger-btn-label="Oui"
+                data-trigger-btn-variant="warning"
+                data-trigger-url="{{ path('app_admin_resources_toggle', { id: resource.id }) }}">
+                {% if isEnabled %}Désactiver{% else %}Activer{% endif %}
+            </button>
+
+            <form method="post" action="{{ path('app_admin_resources_delete', { id: resource.id, token: csrf_token('delete-resource-' ~ resource.id) }) }}">
+                <button type="button" class="btn btn-outline-danger"
+                    data-controller="trigger" 
+                    data-action="click->trigger#open" 
+                    data-trigger-title="Supprimer la ressource"
+                    data-trigger-body="Souhaitez-vous vraiment supprimer cette ressource ?"
+                    data-trigger-btn-label="Oui"
+                    data-trigger-btn-variant="danger"
+                    data-trigger-action="submit">
+                    Supprimer
+                </button>
             </form>
         </div>
     </div>
